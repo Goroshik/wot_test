@@ -1,0 +1,46 @@
+[
+  {
+    "tag": "R04_T-34",
+    "images": {
+      "small_icon": "http://api.tanki.su/static/2.75.1_lst/wot/encyclopedia/vehicle/small/ussr-R04_T-34.png",
+      "contour_icon": "http://api.tanki.su/static/2.75.1_lst/wot/encyclopedia/vehicle/contour/ussr-R04_T-34.png",
+      "big_icon": "http://api.tanki.su/static/2.75.1_lst/wot/encyclopedia/vehicle/ussr-R04_T-34.png"
+    },
+    "tank_id": 1,
+    "type": "mediumTank",
+    "description": "Легенда советских бронетанковых войск. Самый массовый советский танк Второй мировой войны. С 1940 по 1944 год на различных заводах СССР было изготовлено 33805 машин трёх модификаций.",
+    "short_name": "Т-34",
+    "nation": "ussr",
+    "tier": 5,
+    "name": "long-long-long name",
+    "default_profile": {
+      "hp": 560,
+      "rapid": null,
+      "speed_forward": 56,
+      "hull_hp": 472,
+      "speed_backward": 20
+    }
+  },
+  {
+    "tag": "R04_T-34",
+    "images": {
+      "small_icon": "http://api.tanki.su/static/2.75.1_lst/wot/encyclopedia/vehicle/small/ussr-R04_T-34.png",
+      "contour_icon": "http://api.tanki.su/static/2.75.1_lst/wot/encyclopedia/vehicle/contour/ussr-R04_T-34.png",
+      "big_icon": "http://api.tanki.su/static/2.75.1_lst/wot/encyclopedia/vehicle/ussr-R04_T-34.png"
+    },
+    "tank_id": 1,
+    "type": "mediumTank",
+    "description": "Легенда советских бронетанковых войск. Самый массовый советский танк Второй мировой войны. С 1940 по 1944 год на различных заводах СССР было изготовлено 33805 машин трёх модификаций.",
+    "short_name": "Т-34",
+    "nation": "ussr",
+    "tier": 5,
+    "name": "long-long-long name",
+    "default_profile": {
+      "hp": 560,
+      "rapid": null,
+      "speed_forward": 56,
+      "hull_hp": 472,
+      "speed_backward": 20
+    }
+  }
+]

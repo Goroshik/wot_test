@@ -1,0 +1,19 @@
+.container {
+  .btn_mode {
+    display: inline-block;
+    padding: 5px;
+
+    font-size: 11px;
+    line-height: 13px;
+    text-transform: uppercase;
+    
+    transition: color .15s ease-out, background .15s ease-out;
+
+    cursor: pointer;
+
+    &__chosen {
+      color: black;
+      background-color: #a29e87;
+    }
+  }
+}

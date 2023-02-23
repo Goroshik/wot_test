@@ -1,0 +1,50 @@
+$blockPadding: 15px;
+$blockHeight: 30px;
+
+.img_container {
+  display: flex;
+  align-items: center;
+
+  height: $blockHeight;
+  max-width: 300px;
+
+  div {
+    max-width: 100px;
+    flex: 1;
+  }
+}
+
+.txt_container {
+  text-align: center;
+  height: $blockHeight;
+  padding-top: 5px;
+
+  .txt {
+    display: inherit;
+    width: 100%;
+  
+    font-family: "Roboto Condensed","Arial Narrow",Arial,sans-serif;
+    line-height: 20px;
+    font-size: 18px;
+    color: #b8b8a2;
+  
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
+
+.header_container {
+  padding: $blockPadding;
+  background: #302f2d;
+  text-align: center;
+ 
+  &__text {
+    text-transform: uppercase;
+    color: #8c8c7c;
+  
+    font-family: "Roboto Condensed", "Arial Narrow", Arial, sans-serif;
+    line-height: 12px;
+    font-size: 13px; 
+   }
+}

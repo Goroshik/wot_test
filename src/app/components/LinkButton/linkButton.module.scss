@@ -1,0 +1,12 @@
+.button {
+  border: 1px solid rgba(67,66,60,.65);
+  background-color: black;
+  color: #a29e87;
+
+  transition: border .15s ease-out, color .15s ease-out;
+}
+
+.button:hover {
+  background-color: rgba(67,66,60,1);
+  border: 1px solid rgba(67,66,60,.35);
+}

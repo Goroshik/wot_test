@@ -86,13 +86,7 @@ body {
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+ background: url(https://ru-wotp.lesta.ru/static/5.117.1_a28195/wotp_static/img/core/frontend/scss/base/img/transparent.png) no-repeat #1c1c1e;
 }
 
 a {

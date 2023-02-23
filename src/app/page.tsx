@@ -1,91 +1,71 @@
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from './page.module.css'
+'use client';
 
-const inter = Inter({ subsets: ['latin'] })
+import { useCallback, useEffect, useState } from 'react';
+
+import { ModeContext, SearchContext } from '@/react.contexts';
+import { tableModeType, itemCountType, paginationType, TankDataMapping } from '@/types';
+
+import Header from './Header/Header';
+import Table from './Table/Table';
+
+import styles from './page.module.scss'
+import Paginator from './Paginator/Paginator';
+import { mappingTankDataForTable } from '@/mapping';
 
 export default function Home() {
+  const [data, setData] = useState<TankDataMapping[]>();
+  const [tableMode, setMode] = useState<tableModeType>('row');
+  const [inputValue, setInputValue] = useState<string>('');
+  const [itemCount, setItemCount] = useState<itemCountType>('25')
+  const [paginationData, setPaginationData] = useState<paginationType>({ current: 1, count: 1 });
+
+  const fetchData = useCallback(
+    async (pageNumber: paginationType['count'], limit: itemCountType) => {
+      console.log(limit, pageNumber)
+      try {
+        const res = await fetch(
+          `https://api.tanki.su/wot/encyclopedia/vehicles/
+          ?application_id=${process.env.NEXT_PUBLIC_ASSESS_TOKEN}
+          &limit=${limit}
+          &page_no=${pageNumber}
+        `
+        );
+        const { meta, data } = await res.json();;
+
+        const result = Object.keys(data).map(tankId => mappingTankDataForTable(data[tankId]));
+
+        setPaginationData({ current: meta.page, count: meta.page_total });
+        setData(result);
+      } catch (error) {
+        setData([]);
+      }
+    }, [])
+
+  const onSearchClick = () => fetchData(paginationData.current, itemCount);
+  const onChangePage = (pageNumber: paginationType['current']) => fetchData(pageNumber, itemCount);
+  const onChangeItemCount = (count: itemCountType) => {
+    setItemCount(count)
+    fetchData(paginationData.current, count)
+  };
+
+  useEffect(() => {
+    fetchData(paginationData.count, itemCount);
+  }, [])
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <ModeContext.Provider value={{ tableMode, setMode }}>
+      <SearchContext.Provider value={{ inputValue, setInputValue }}>
+        <div className={styles.container}>
+          <Header
+            onSearchClick={onSearchClick}
+            itemCount={itemCount}
+            onChangeItemCount={onChangeItemCount}
+          />
+          <Paginator paginationData={paginationData} onChangePage={onChangePage}>
+            {data?.length && <Table data={data} />}
+          </Paginator>
         </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-        <div className={styles.thirteen}>
-          <Image src="/thirteen.svg" alt="13" width={40} height={31} priority />
-        </div>
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+      </SearchContext.Provider>
+    </ModeContext.Provider>
   )
 }
